@@ -35,6 +35,7 @@
 #wrap {
     width:800px;
     margin:0 auto;
+    margin-left: 620px;
     background:#EEEEEE;
 }   
 #main {
@@ -81,7 +82,7 @@
         30 messages per second to avoid overloading the channel.</p>
 
         <p>
-          <a href="https://github.com/rwos/hangouts-game">v9.0</a>
+          <a href="https://github.com/rwos/hangouts-game">v10.0</a>
         </p>
     </div>
 </div>
