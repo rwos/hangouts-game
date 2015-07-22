@@ -1,100 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
-<!-- Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *      
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License
--->
-        <ModulePrefs title="Send Message">
-                <Require feature="rpc" />
-                <Require feature="views" />
-                <Require feature="locked-domain" />
-        </ModulePrefs>
-        <Content type="html"><![CDATA[     
+    <ModulePrefs title="Shootout">
+        <Require feature="rpc" />
+        <Require feature="views" />
+        <Require feature="locked-domain" />
+    </ModulePrefs>
+    <Content type="html"><![CDATA[
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
     <script>
-// Various constants for width and height
-var tileSide = 10;
-var pixelWidth = 300;
-var pixelHeight = 300;
-var tileWidth = pixelWidth / tileSide;
-var tileHeight = pixelHeight / tileSide;
-
-// Holds all our tile colors
-var tileColor = [];
-
-// Current drawing color
-var currentColor = '#F00';
-
-var canvas = document.getElementById('canvas');
-
-/** Button callback for selecting a color
- * @param {string} value a hex color.
- */
-function setColor(value) {
-    currentColor = value;
-}
-
-// Keep track of where the mouse is and whether it's moved across a grid.
-var mouseDirty = false;
-var lastTileX, lastTileY;
-
-/** Draws the tile grid.
- * @param {context} context a canvas 2d context.
- */
-function render(context) {
-  context.fillStyle = '#000';
-  context.fillRect(0, 0, pixelWidth, pixelHeight);
-
-  for (var j = 0; j < tileWidth; j++) {
-    for (var i = 0; i < tileHeight; i++) {
-      var color = tileColor[i][j];
-
-      context.fillStyle = color;
-      context.fillRect(i * tileSide + 1,
-                       j * tileSide + 1,
-                       tileSide - 2,
-                       tileSide - 2);
-    }
-  }
-}
-
-/** Move mouse
- * @param {number} x x coordinate.
- * @param {number} y y coordinate.
- */
-function mouseMove(x, y) {
-    // Only one update per frame.
-    if (mouseDirty) {
-        return;
-    }
-
-    var tileX = Math.floor(x / tileSide);
-    var tileY = Math.floor(y / tileSide);
-
-    mouseDirty = (tileX != lastTileX || tileY != lastTileY);
-
-    // Only color if you've moved a significant amount.
-    if (mouseDirty) {
-        tileColor[tileX][tileY] = currentColor;
-
-        lastTileX = tileX;
-        lastTileY = tileY;
-    }
-}
-
-/** Standard requestAnimFrame; see paulirish.com */
 window.requestAnimFrame = (
     function(callback) {
       return window.requestAnimationFrame ||
@@ -107,7 +24,7 @@ window.requestAnimFrame = (
           };
     })();
 
-/** Draw canvas once per frame. */
+/*** XXX
 function animate() {
   // draw
   var canvas = document.getElementById('canvas');
@@ -127,23 +44,13 @@ function animate() {
     }
   });
 }
-
-/** Builds our grid of colors */
-function initColorBoxes() {
-  tileColor = [];
-  for (var i = 0; i < tileWidth; i++) {
-    var row = [];
-    for (var j = 0; j < tileHeight; j++) {
-      row.push('#FFF');
-    }
-    tileColor.push(row);
-  }
-}
+*/
 
 
 /** Get a message.
  * @param {MessageReceievedEvent} event An event.
  */
+/* XXX
 function onMessageReceived(event) {
   try {
     var data = JSON.parse(event.message);
@@ -153,57 +60,39 @@ function onMessageReceived(event) {
     console.log(e);
   }
 }
+*/
 
-/** Kick off the app. */
 function init() {
-  // When API is ready...
-  gapi.hangout.onApiReady.add(
-      function(eventObj) {
-        if (eventObj.isApiReady) {
-          try {
-            gapi.hangout.data.onMessageReceived.add(onMessageReceived);
+  gapi.hangout.onApiReady.add(function(eventObj) {
+    if (eventObj.isApiReady) {
+      try {
+        var canvas = gapi.hangout.layout.getVideoCanvas();
+        canvas.setWidth(600);
+        canvas.setPosition(0, 0);
+        canvas.setVisible(true);
 
-            document.getElementById('canvas').onmousemove = function(e) {
-              var ev = e || window.event;
-              mouseMove(ev.clientX - canvas.offsetLeft,
-                        ev.clientY - canvas.offsetTop);
-            };
+        /* XXX event handler here
+        gapi.hangout.data.onMessageReceived.add(onMessageReceived);
 
-            initColorBoxes();
-            animate();
+        document.getElementById('canvas').onmousemove = function(e) {
+          var ev = e || window.event;
+          mouseMove(ev.clientX - canvas.offsetLeft,
+                    ev.clientY - canvas.offsetTop);
+        };
+        */
+        /// XXX main loop animate();
 
-
-            var id = gapi.hangout.getLocalParticipantId();
-            var canvas = gapi.hangout.layout.getVideoCanvas();
-
-            canvas.setWidth(600);
-            canvas.setPosition(0, 0);
-            canvas.setVisible(true);
-            console.log(canvas);
-
-          } catch (e) {
-            console.log('init:ERROR');
-            console.log(e);
-          }
-        }
-      });
+      } catch (e) {
+        console.log('init:ERROR');
+        console.log(e);
+      }
+    }
+  });
 }
 
-
-// Wait for gadget to load.                                                       
 gadgets.util.registerOnLoadHandler(init);
     </script>
     <style type="text/css">
-.button {
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
-  background: -moz-linear-gradient(top, #fff, #ddd);  
-  border: 1px solid #bbb;
-}
-.button:active {
-        background: -webkit-gradient(linear, left top, left bottom, from(#aaa), to(#333)); 
-        background: -moz-linear-gradient(bottom, #ddd, #aaa); }
 body {
     padding: 0;
     margin: 0;
@@ -214,13 +103,9 @@ body {
 
 #highscore {
     background: rgba(255, 255, 255, 0.5);
+    table-layout: fixed;
     width: 100%;
 }
-
-#highscore {
-    table-layout: fixed;
-}
-
 #highscore .place {
     width: 2em;
 }
@@ -257,6 +142,5 @@ body {
     <canvas id="main"></canvas>
   </body>
 </html>
-]]>
-</Content>
+    ]]></Content>
 </Module>
