@@ -81,7 +81,7 @@
         30 messages per second to avoid overloading the channel.</p>
 
         <p>
-          <a href="https://github.com/rwos/hangouts-game">v7.0</a>
+          <a href="https://github.com/rwos/hangouts-game">v8.0</a>
         </p>
     </div>
 </div>
@@ -266,6 +266,15 @@ function init() {
 
             initColorBoxes();
             animate();
+
+
+            var id = gapi.hangout.getLocalParticipantId();
+            var canvas = gapi.hangout.layout.getVideoCanvas();
+
+            canvas.setWidth(600);
+            canvas.setPosition(300, 50);
+            canvas.setVisible(true);
+
           } catch (e) {
             console.log('init:ERROR');
             console.log(e);
