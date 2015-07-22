@@ -6,6 +6,10 @@ env:
   global:
   - GH_REF: github.com/rwos/hangouts-game.git
   - secure: bMkMoLE8nOwHsb80EgcV4VS1izrUYhmdYxIGU8OysnzK7TuQsbJxst0HVDkNHH+ySTv+V7CFa4DGDEmlcE4tPOGTHaWJji1buG8QwJw0UuvrNqgs0e2keMPQubaGWiAfE8BU2oA3hsmlQOIqRob/X15Kowr7F9nu8ZkbuWc09nNXjTFrYOrfvTGoGdDEw4gikkqczVVTOopsx+9x+ZLUvNK1CSbxo8xBwmYz++URGyVFNF6iGrnASTaj+9upDoNKlwiX9pwo9m8NA0eueNbv5vbQXwpRZ4Ifw3vGevQm/sfRYva4CI9VMS8qPmwqhQN+xtD722HFY5wQYSxdD4xV2nAkftYah90IPHrTrVfg9W7l03sNcMyKCVRQpn0Yo/mGkwslU++bwq9Nn0D1YsNDozN6oau2WcJbOMErIJKlNcwOKHAYAiWtsphGUf22fHoMNiDmwyDq1ejCGhJUdpdbeyNetxV6uZNJBlw0yfCRuZPAqtrZGNFdXTK2pBhJvBpLRedX5eqcTtZW3IjgVxdcBtYVh8crfi9fVF1IeiKR0V3aWrED4QVAOEUE6vpWm3FG7ZAj53QN7Fh4a/mMcIg635jTGY100+3yxLVxoJJ4paF7B6YWReXVDW3jnwy2Wm6uc3qw+xn1aXulP/ohSJ8z4qgHI7VwP4P3Ij1uECQjHH8=
+cache:
+  directories:
+    - 3rd
+
 before_install: export TRAVIS_COMMIT_MSG="$(git log --format=%B --no-merges -n 1)"
 install: 
 before_script: 
