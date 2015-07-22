@@ -20,6 +20,7 @@
         <Content type="html"><![CDATA[     
 <html>
 <style type="text/css">
+
 <!--
 .button {
   border-radius: 3px;
@@ -78,6 +79,10 @@
 
         <p>Note that some messages may be dropped, especially if your application sends lots of them at once.  This app is locked to a maximum of
         30 messages per second to avoid overloading the channel.</p>
+
+        <p>
+          <a href="https://github.com/rwos/hangouts-game">v7.0</a>
+        </p>
     </div>
 </div>
 
