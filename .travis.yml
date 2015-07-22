@@ -1,0 +1,13 @@
+language: c
+sudo: false
+branches:
+  only: master
+env:
+  global:
+  - GH_REF: github.com/rwos/hangouts-game.git
+
+before_install: export TRAVIS_COMMIT_MSG="$(git log --format=%B --no-merges -n 1)"
+install: 
+before_script: 
+script: make deploy
+after_script: 
