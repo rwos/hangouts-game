@@ -183,8 +183,9 @@ function init() {
             var canvas = gapi.hangout.layout.getVideoCanvas();
 
             canvas.setWidth(600);
-            canvas.setPosition(300, 50);
+            canvas.setPosition(0, 0);
             canvas.setVisible(true);
+            console.log(canvas);
 
           } catch (e) {
             console.log('init:ERROR');
