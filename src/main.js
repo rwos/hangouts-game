@@ -1,8 +1,3 @@
-// Keep track of how many messages were sent
-var messageLastSeen = {};
-var myMessageCount = 0;
-var missedMessages = 0;
-
 // Various constants for width and height
 var tileSide = 10;
 var pixelWidth = 300;
@@ -97,9 +92,8 @@ function animate() {
     animate();
     // Send a message if you've moved.
     if (mouseDirty) {
-      myMessageCount++;
       gapi.hangout.data.sendMessage(
-          JSON.stringify([myMessageCount,
+          JSON.stringify([0,
                           currentColor,
                           lastTileX,
                           lastTileY]));
@@ -120,30 +114,6 @@ function initColorBoxes() {
   }
 }
 
-/** Draw missing packets, if packets are missing. */
-function showLossRates() {
-  var div = document.getElementById('eventsSent');
-  var retVal = 'Missed messages: ' + missedMessages;
-
-  div.innerHTML = retVal;
-}
-
-var missedPackets = 0;
-
-/** Count any dropped packages.  Compare incoming message count
- * to the number of messages we've seen; any discrepancy counts
- * as one miss.
- * @param {string} senderid Participant id of sender.
- * @param {number} messageid last number send.
- */
-function droppedPackageCount(senderid, messageid) {
-  if (messageLastSeen[senderid] != messageid - 1) {
-    missedPackets++;
-  }
-  messageLastSeen[senderid] = messageid;
-
-  console.log('message id = ' + messageid);
-}
 
 /** Get a message.
  * @param {MessageReceievedEvent} event An event.
@@ -153,8 +123,6 @@ function onMessageReceived(event) {
     var data = JSON.parse(event.message);
 
     tileColor[data[2]][data[3]] = data[1];
-    droppedPackageCount(event.senderId, parseInt(data[0]));
-    showLossRates();
   } catch (e) {
     console.log(e);
   }

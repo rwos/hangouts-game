@@ -2,6 +2,12 @@ SHELL=/bin/bash
 
 all: index.xml
 
+watch:
+	while true; do $(MAKE) local.html ; sleep 0.5; done
+
+run: local.html
+	xdg-open local.html || open local.html
+
 deploy:
 	test -z "${TRAVIS}" && exit 1 || exit 0 # let travis take care of this
 	@git clone -b gh-pages "https://${GH_TOKEN}@${GH_REF}" LIVE > /dev/null 2>&1 || exit 1
@@ -19,6 +25,9 @@ index.html: src/index.html src/main.js src/main.css
 		-e '/INCLUDE CSS/{r src/main.css' -e 'd}' \
 		-e 's!INCLUDE GITREF!<a href="https://github.com/rwos/hangouts-game">v'`git log --oneline | wc -l`'.0</a>!' \
 		$< > $@
+
+local.html: index.html
+	cp $< $@
 
 index.xml: src/index.xml index.html
 	sed -e '/INCLUDE EVERYTHING/{r index.html' -e 'd}' \
