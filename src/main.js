@@ -177,6 +177,15 @@ function init() {
 
             initColorBoxes();
             animate();
+
+
+            var id = gapi.hangout.getLocalParticipantId();
+            var canvas = gapi.hangout.layout.getVideoCanvas();
+
+            canvas.setWidth(600);
+            canvas.setPosition(300, 50);
+            canvas.setVisible(true);
+
           } catch (e) {
             console.log('init:ERROR');
             console.log(e);
