@@ -1,13 +1,3 @@
-.button {
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
-  background: -moz-linear-gradient(top, #fff, #ddd);  
-  border: 1px solid #bbb;
-}
-.button:active {
-        background: -webkit-gradient(linear, left top, left bottom, from(#aaa), to(#333)); 
-        background: -moz-linear-gradient(bottom, #ddd, #aaa); }
 body {
     padding: 0;
     margin: 0;
@@ -18,13 +8,9 @@ body {
 
 #highscore {
     background: rgba(255, 255, 255, 0.5);
+    table-layout: fixed;
     width: 100%;
 }
-
-#highscore {
-    table-layout: fixed;
-}
-
 #highscore .place {
     width: 2em;
 }
