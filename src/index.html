@@ -1,0 +1,45 @@
+<html>
+<style type="text/css">
+<!--
+     INCLUDE CSS
+-->
+</style>
+
+<script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
+
+<div id="wrap">
+    <h2>Message Event Channel Demo</h2>
+    <div id="main">
+        <canvas id="canvas" width='300' height='300'></canvas><br/>
+
+            <p>Choose a color: <span style="width:50px;height:50px;border:1px solid #000; background:#0F0" onClick='setColor("#0F0")'>G</span>
+            <span style="width:50px;height:50px;border:1px solid #000; background:#F00" onClick='setColor("#F00")'>R</span>
+            <span style="width:50px;height:50px;border:1px solid #000; background:#00F" onClick='setColor("#00F")'>B</span>
+            <span style="width:50px;height:50px;border:1px solid #000; background:#FFF" onClick='setColor("#FFF")'>W</span></p>
+
+        <div id="eventsSent"></div><br/>
+
+        <input type='button' class='button' value='Reset picture' onClick='initColorBoxes()'></input>
+    </div>
+    <div id='text'>
+        <h2>What am I seeing?</h2>
+
+        <p>This application demonstrates the Hangouts API <b>message data channel</b>.  
+        In this data model, you can send rapid, small updates to other participants running the same 
+        application.  We are <i>not</i> using shared state.</p>
+        
+        <p>Mousing over the grid will use <tt>sendMessage</tt> to indicate which square you are over and what color you have chosen.</p>
+
+        <p>Note that some messages may be dropped, especially if your application sends lots of them at once.  This app is locked to a maximum of
+        30 messages per second to avoid overloading the channel.</p>
+
+        <p>
+          INCLUDE GITREF
+        </p>
+    </div>
+</div>
+
+<script>
+    INCLUDE JS
+</script>
+</body>

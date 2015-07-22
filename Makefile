@@ -17,7 +17,7 @@ deploy:
 index.html: src/index.html src/main.js src/main.css
 	sed -e '/INCLUDE JS/{r src/main.js' -e 'd}' \
 		-e '/INCLUDE CSS/{r src/main.css' -e 'd}' \
-		-e 's!INCLUDE GITREF!<a href="https://github.com/rwos/gifstopmotion">v'`git log --oneline | wc -l`'.0</a>!' \
+		-e 's!INCLUDE GITREF!<a href="https://github.com/rwos/hangouts-game">v'`git log --oneline | wc -l`'.0</a>!' \
 		$< > $@
 
 index.xml: src/index.xml index.html
