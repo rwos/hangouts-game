@@ -20,8 +20,8 @@ deploy:
 		git commit --allow-empty -m "deploy: ${TRAVIS_COMMIT_MSG}"; \
 		git push origin gh-pages > /dev/null 2>&1 || exit 1;
 
-index.html: src/index.html src/main.js src/main.css
-	sed -e '/INCLUDE JS/{r src/main.js' -e 'd}' \
+index.html: src/index.html src/main.js src/game.js src/main.css Makefile
+	sed -e '/INCLUDE JS/{r src/game.js' -e 'r src/main.js' -e 'd}' \
 		-e '/INCLUDE CSS/{r src/main.css' -e 'd}' \
 		-e 's!INCLUDE GITREF!<a href="https://github.com/rwos/hangouts-game">v'`git log --oneline | wc -l`'.0</a>!' \
 		$< > $@
